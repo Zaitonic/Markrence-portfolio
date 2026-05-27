@@ -844,12 +844,31 @@ function Contact() {
 
   const handleCopy = (id, text, e) => {
     e.stopPropagation();
-    navigator.clipboard.writeText(text).then(() => {
-      setCopiedItem(id);
-      setTimeout(() => {
-        setCopiedItem(null);
-      }, 2000);
-    });
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopiedItem(id);
+        setTimeout(() => {
+          setCopiedItem(null);
+        }, 2000);
+      });
+    } else {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        setCopiedItem(id);
+        setTimeout(() => {
+          setCopiedItem(null);
+        }, 2000);
+      } catch (err) {
+        console.error('Fallback copy failed', err);
+      }
+      document.body.removeChild(textArea);
+    }
   };
 
   return (
@@ -964,6 +983,8 @@ function Footer() {
   );
 }
 
+const SECTIONS = ['home', 'about', 'education', 'certificates', 'projects', 'contact'];
+
 // ==========================================
 // 11. MAIN APP COMPONENT
 // ==========================================
@@ -971,10 +992,8 @@ function Footer() {
 export default function App() {
   const [activeSection, setActiveSection] = useState('home');
 
-  const sections = ['home', 'about', 'education', 'certificates', 'projects', 'contact'];
-
   // Track user scroll navigation states
-  useScrollSpy(sections, setActiveSection);
+  useScrollSpy(SECTIONS, setActiveSection);
 
   // Initialize fade-in on scroll animations
   useScrollReveal();
