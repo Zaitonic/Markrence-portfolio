@@ -44,6 +44,10 @@ body {
     background-attachment: fixed;
 }
 
+body.modal-open {
+    overflow: hidden !important;
+}
+
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
@@ -233,7 +237,7 @@ section {
 }
 
 section h2 {
-    font-size: 2.8rem;
+    font-size: clamp(2rem, 5vw, 2.8rem);
     font-weight: 800;
     margin-bottom: 3rem;
     letter-spacing: -1px;
@@ -284,7 +288,7 @@ section h2::after {
 }
 
 .hero h1 {
-    font-size: 4.2rem;
+    font-size: clamp(2.4rem, 6.5vw, 4.2rem);
     line-height: 1.1;
     font-weight: 900;
     margin-bottom: 1.5rem;
@@ -649,7 +653,7 @@ section h2::after {
 
 .certificates-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
     gap: 2.5rem;
 }
 
@@ -920,7 +924,7 @@ section h2::after {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(285px, 1fr));
     gap: 2.5rem;
 }
 
@@ -1288,6 +1292,10 @@ section h2::after {
     background: white;
 }
 
+.mobile-pdf-alert {
+    display: none;
+}
+
 .modal-actions {
     padding: 1.5rem 2rem;
     display: flex;
@@ -1562,5 +1570,9 @@ footer .copyright {
     .modal-btn {
         width: 100%;
         justify-content: center;
+    }
+    
+    .mobile-pdf-alert {
+        display: block !important;
     }
 }

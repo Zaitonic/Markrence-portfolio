@@ -401,13 +401,13 @@ function CertificateModal({ isOpen, onClose, certificate }) {
       if (e.key === 'Escape') onClose();
     };
     if (isOpen) {
-      document.body.style.overflow = 'hidden';
+      document.body.classList.add('modal-open');
       window.addEventListener('keydown', handleKeyDown);
     } else {
-      document.body.style.overflow = 'auto';
+      document.body.classList.remove('modal-open');
     }
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.classList.remove('modal-open');
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);
@@ -500,11 +500,30 @@ function CertificateModal({ isOpen, onClose, certificate }) {
               alt={certificate.title} 
             />
           ) : (
-            <iframe 
-              className="modal-iframe" 
-              src={certificate.pdf} 
-              title={`${certificate.title} PDF Document`}
-            />
+            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
+              <div className="mobile-pdf-alert" style={{ 
+                width: '100%', 
+                textAlign: 'center', 
+                padding: '0.6rem 1rem', 
+                background: 'rgba(255, 204, 0, 0.1)', 
+                border: '1px solid rgba(255, 204, 0, 0.2)',
+                borderRadius: '8px',
+                color: 'var(--accent)',
+                fontSize: '0.85rem',
+                marginBottom: '1rem',
+              }}>
+                <i className="fas fa-info-circle" style={{ marginRight: '0.5rem' }}></i> 
+                On a phone? If the PDF doesn't display, you can <a href={certificate.pdf} target="_blank" rel="noopener noreferrer" style={{ color: 'white', textDecoration: 'underline', fontWeight: 'bold' }}>open it in a new tab</a>.
+              </div>
+              <div style={{ width: '100%', height: '55vh', overflow: 'auto', WebkitOverflowScrolling: 'touch', borderRadius: '8px', background: 'white' }}>
+                <iframe 
+                  className="modal-iframe" 
+                  src={certificate.pdf} 
+                  title={`${certificate.title} PDF Document`}
+                  style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+                />
+              </div>
+            </div>
           )}
         </div>
 
