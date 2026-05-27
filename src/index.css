@@ -1185,9 +1185,10 @@ section h2::after {
     backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     z-index: 2000;
     padding: 2rem;
+    overflow-y: auto;
     animation: fadeIn 0.3s ease forwards;
 }
 
@@ -1196,7 +1197,7 @@ section h2::after {
     border-radius: 20px;
     max-width: 950px;
     width: 100%;
-    max-height: 90vh;
+    margin: auto;
     overflow: hidden;
     position: relative;
     border: 1px solid rgba(255, 77, 126, 0.3);
